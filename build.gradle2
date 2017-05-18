@@ -1,0 +1,70 @@
+apply plugin:'java'
+
+println "Print convention-properites of java plugin out!"
+println "1. dir properties"
+// println "reportsDirName: " + reportsDirName
+println "testResultsDirName: " + testResultsDirName
+println "testReportDirName: " + testReportDirName
+println "libsDirName: " + libsDirName
+println "distsDirName: " + distsDirName
+println "docsDirName: " + docsDirName
+println "dependencyCacheDirName: " + dependencyCacheDirName
+println "2. other properties"
+println "sourceCompatibility: " + sourceCompatibility
+println "targetCompatibility: " + targetCompatibility
+println "archivesBaseName: " + archivesBaseName
+// println "manifest: " + manifest
+println ""
+println "Print SourceSet's properties"
+
+sourceSets.each {
+ println "name: " + it.name
+ println "output.classesDir: " + it.output.classesDir
+ println "output.resourcesDir: " + it.output.resourcesDir
+ it.compileClasspath.each { fi ->
+ 	println "compileClasspath: " + fi.getCanonicalPath()
+ }
+ println "compileClasspathConfigurationName: " + it.compileClasspathConfigurationName
+}
+
+
+println "Print properties of JavaCompile type tasks"
+
+tasks.withType(JavaCompile) {
+
+ classpath.each {
+	println "classpath: " + it.getCanonicalPath()
+ }
+
+ println "destinationDir: " + destinationDir.getCanonicalPath()
+
+ 
+
+}
+
+//sourceCompatibility can be lower then target but compileJava task's options.bootClasspath property must be path of the lower version java's rt.jar
+sourceCompatibility = 1.8
+//targetCompatibility can't be lower then source because there's no way to convert newer spec to lower spec
+targetCompatibility = 1.8
+
+
+//Use compileJava task's properties to manupulate compile options.
+compileJava {
+options.fork = true
+options.compilerArgs << '-Xlint:unchecked'
+
+//use this property to set java rt.jar's path when sourceCompatility is lower then targetCompatibility
+//options.bootClasspath
+}
+
+
+
+//Use jar task's properties to manupulate the jar file's name or components such as menifest file.
+jar {
+// baseName = 'gradleStudy'
+// appendix = 'bin'
+// version = '0.1'
+// classifier = 'jdk8'
+
+ archiveName = 'gradleStudy-bin-0.2-jdk8.jar'
+}

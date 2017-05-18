@@ -1,0 +1,28 @@
+apply plugin: 'java'
+
+def defaultEncoding = 'UTF-8'
+
+// compileJava task's property 
+compileJava.options.encoding = defaultEncoding
+[compileJava, compileTestJava]*.options*.encoding = defaultEncoding
+
+/*
+
+tasks.withType(JavaCompile) {
+	options.encodig = 'UTF-8'
+}
+
+*/
+
+// project's properties
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	testCompile "junit:junit:4.11"
+}
+
