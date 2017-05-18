@@ -77,3 +77,12 @@ classifier = 'jdk8'
 }
 
 
+//Use javadoc task's properties to manupulate javadoc destination, title, options.links, etc
+javadoc {
+ //default is 'build/docs/javadoc'
+ //destinationDir = "${buildDir}/dist/javadoc"
+ println destinationDir
+ title = 'Math lib version 0.1'
+ options.links << 'http://docs.oracle.com/javase/jp/8/api/'
+}
+
