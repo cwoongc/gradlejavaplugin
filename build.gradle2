@@ -61,10 +61,19 @@ options.compilerArgs << '-Xlint:unchecked'
 
 //Use jar task's properties to manupulate the jar file's name or components such as menifest file.
 jar {
-// baseName = 'gradleStudy'
-// appendix = 'bin'
-// version = '0.1'
-// classifier = 'jdk8'
+baseName = 'gradleStudy'
+appendix = 'bin'
+version = '0.1'
+classifier = 'jdk8'
 
- archiveName = 'gradleStudy-bin-0.2-jdk8.jar'
+// archiveName = 'gradleStudy-bin-0.2-jdk8.jar'
+
+ manifest {
+  attributes(
+	'Implementation-Title': 'Arithmetic Lib',
+	'Implementation-Version': version,
+	'Commit-Id': 'commitId')
+ }
 }
+
+
